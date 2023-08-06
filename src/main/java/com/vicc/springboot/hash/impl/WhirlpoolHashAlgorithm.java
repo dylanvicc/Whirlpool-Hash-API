@@ -7,18 +7,18 @@ import com.vicc.springboot.hash.HashAlgorithm;
 
 public class WhirlpoolHashAlgorithm implements HashAlgorithm {
 
-	@Override
-	public String hash(String value) {
+  @Override
+  public String hash(String value) {
 
-		final WhirlpoolDigest digest = new WhirlpoolDigest();
-		digest.reset();
+    final WhirlpoolDigest digest = new WhirlpoolDigest();
+    digest.reset();
 
-		final byte[] bytes = value.getBytes();
-		digest.update(bytes, 0, bytes.length);
+    final byte[] bytes = value.getBytes();
+    digest.update(bytes, 0, bytes.length);
 
-		final byte[] hash = new byte[digest.getDigestSize()];
-		digest.doFinal(hash, 0);
+    final byte[] hash = new byte[digest.getDigestSize()];
+    digest.doFinal(hash, 0);
 
-		return Hex.toHexString(hash).toUpperCase();
-	}
+    return Hex.toHexString(hash).toUpperCase();
+  }
 }

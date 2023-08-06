@@ -4,5 +4,5 @@ import java.security.NoSuchAlgorithmException;
 
 public interface HashAlgorithm {
 
-	String hash(String value) throws NoSuchAlgorithmException;
+  String hash(String value) throws NoSuchAlgorithmException;
 }

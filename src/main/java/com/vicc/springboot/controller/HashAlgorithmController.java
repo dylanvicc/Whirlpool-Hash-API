@@ -16,37 +16,36 @@ import com.vicc.springboot.hash.impl.WhirlpoolHashAlgorithm;
 @RestController
 public class HashAlgorithmController {
 
-	public enum HashingAlgorithms {
+  public enum HashingAlgorithms {
 
-		WHIRLPOOL("WHIRLPOOL", new WhirlpoolHashAlgorithm()),
-		SHA256("SHA256", new SHA256HashAlgorithm()),
-		SHA1("SHA1", new SHA1HashAlgorithm());
-		
-		private String name;
-		private HashAlgorithm algorithm;
+    WHIRLPOOL("WHIRLPOOL", new WhirlpoolHashAlgorithm()), SHA256("SHA256", new SHA256HashAlgorithm()),
+    SHA1("SHA1", new SHA1HashAlgorithm());
 
-		HashingAlgorithms(String name, HashAlgorithm algorithm) {
-			this.name = name;
-			this.algorithm = algorithm;
-		}
+    private String name;
+    private HashAlgorithm algorithm;
 
-		public static String hash(String value, String name) throws NoSuchAlgorithmException {
-			for (HashingAlgorithms it : HashingAlgorithms.values()) {
-				if (it.name.equalsIgnoreCase(name))
-					return it.algorithm.hash(value);
-			}
-			throw new NoSuchAlgorithmException();
-		}
-	}
+    HashingAlgorithms(String name, HashAlgorithm algorithm) {
+      this.name = name;
+      this.algorithm = algorithm;
+    }
 
-	@RequestMapping("/")
-	public String hash(@RequestParam("value") String value, @RequestParam("name") String name) {
-		if (value.equals(""))
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid hash value parameter");
-		try {
-			return HashingAlgorithms.hash(value, name);
-		} catch (NoSuchAlgorithmException exception) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid hash algorithm parameter");
-		}
-	}
+    public static String hash(String value, String name) throws NoSuchAlgorithmException {
+      for (HashingAlgorithms it : HashingAlgorithms.values()) {
+        if (it.name.equalsIgnoreCase(name))
+          return it.algorithm.hash(value);
+      }
+      throw new NoSuchAlgorithmException();
+    }
+  }
+
+  @RequestMapping("/")
+  public String hash(@RequestParam("value") String value, @RequestParam("name") String name) {
+    if (value.equals(""))
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid hash value parameter");
+    try {
+      return HashingAlgorithms.hash(value, name);
+    } catch (NoSuchAlgorithmException exception) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid hash algorithm parameter");
+    }
+  }
 }

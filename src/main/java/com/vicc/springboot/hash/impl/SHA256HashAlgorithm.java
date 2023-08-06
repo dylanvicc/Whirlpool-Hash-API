@@ -9,15 +9,15 @@ import com.vicc.springboot.hash.HashAlgorithm;
 
 public class SHA256HashAlgorithm implements HashAlgorithm {
 
-	@Override
-	public String hash(String value) throws NoSuchAlgorithmException {
+  @Override
+  public String hash(String value) throws NoSuchAlgorithmException {
 
-		final byte[] bytes = MessageDigest.getInstance("SHA-256").digest(value.getBytes(StandardCharsets.UTF_8));
-		final StringBuilder hash = new StringBuilder(new BigInteger(1, bytes).toString(16));
+    final byte[] bytes = MessageDigest.getInstance("SHA-256").digest(value.getBytes(StandardCharsets.UTF_8));
+    final StringBuilder hash = new StringBuilder(new BigInteger(1, bytes).toString(16));
 
-		while (hash.length() < 32)
-			hash.insert(0, '0');
+    while (hash.length() < 32)
+      hash.insert(0, '0');
 
-		return hash.toString().toUpperCase();
-	}
+    return hash.toString().toUpperCase();
+  }
 }
