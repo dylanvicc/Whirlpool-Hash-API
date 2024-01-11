@@ -1,0 +1,1 @@
+Provides an endpoint developed in Spring Boot. Allows the user to perform hashing operations on a string parameter. Supports Whirlpool, SHA1, & SHA256. Non salted algorithms. Developed for frontend JS test cases.
